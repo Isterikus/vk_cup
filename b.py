@@ -1,10 +1,11 @@
-passengers = list(map(int, input().split(' ')))[1]
+size, passengers = list(map(int, input().split(' ')))
+
 
 def parsePlane(plane):
     d = {0: [], 1: [], 2: []}
-    for col in range(0, len(plane)):
-        for row in range(0, len(plane[col])):
-            for place in range(0, len(plane[col][row])):
+    for col in range(len(plane)):
+        for row in range(len(plane[col])):
+            for place in range(len(plane[col][row])):
                 if plane[col][row][place] == '.':
                     if place == 0:
                         if plane[col][row][place + 1] == 'S': d[1].append([col, row, place])
@@ -20,12 +21,8 @@ def parsePlane(plane):
 
     return d
 
-
-
 plane = []
-while True:
-    try: plane.append([list(x) for x in input().split('-')])
-    except: break
+for i in range(size): plane.append([list(x) for x in input().split('-')])
 
 plane = list(map(list, zip(*plane)))
 d = parsePlane(plane)
@@ -43,7 +40,7 @@ for rows in list(zip(*plane)):
     res += '\n'
 
 total = 0
-for i in range(0, len(res)):
+for i in range(len(res)):
     if res[i] == 'S':
         try: total += (0, 1)[res[i - 1] != '.' and res[i - 1] != '-' and res[i - 1] != '\n']
         except: pass
